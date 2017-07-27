@@ -44,7 +44,17 @@ app.get('/api/v1/sharks', (request, response) => {
   })
 });
 
-app.get('api/v1/orders', (request, response) => {
+app.get('/api/v1/sharks/:id', (request, response) => {
+  database('sharks').where('id', request.params.id).select()
+  .then((shark) => {
+    response.status(200).json(shark);
+  })
+  .catch((error) => {
+    response.status(500).json({ error });
+  })
+});
+
+app.get('/api/v1/orders', (request, response) => {
   database('order_history').select()
     .then((orders) => {
       if (orders.length) {

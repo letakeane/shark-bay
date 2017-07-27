@@ -1,7 +1,7 @@
 const sharkHtmlGenerator = (shark) => {
   return(
     `
-    <article class='shark-card' id='${shark.name}' data-price='${shark.price}'>
+    <article class='shark-card' id='${shark.id}' data-price='${shark.price}'>
       <h2 class='shark-name'>${shark.name}</h2>
       <img class='shark-image' alt='picture of shark' src=${shark.img_src} />
       <p>Description:</p>
@@ -43,6 +43,13 @@ const clickBuyShark = () => {
     $('#show-cart').css('background-color', '#23bca3');
     $('#show-cart').css('border', '2px solid white');
     $('#show-cart').css('border-right', 'none');
+
+    fetch(`/api/v1/sharks/${id}`)
+      .then((response) => response.json())
+      .then(shark => {
+        localStorage.setItem(`${id}`, JSON.stringify(shark));
+      })
+    .catch((error) => { console.log('Error getting shark information: ', error) })
   })
 }
 
