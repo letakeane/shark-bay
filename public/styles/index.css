@@ -1,0 +1,135 @@
+body {
+  margin: 0;
+  background: url('/assets/underwater.jpg');
+  background-attachment: fixed;
+  background-size: cover;
+}
+
+/*FONTS*/
+h1,
+h3,
+.shark-name {
+  font-family: 'Abril Fatface', serif;
+  letter-spacing: 4px;
+  text-align: center;
+  margin: 0;
+}
+
+h1 {
+  font-size: 60px;
+}
+
+p, button {
+  font-family: 'Open Sans', sans-serif;
+  font-weight: 300;
+  margin: 5px;
+}
+
+.slogan {
+  text-align: center;
+}
+
+/*SHOP CONTENT*/
+#shop-content {
+  display: flex;
+}
+
+/*STOREFRONT*/
+#storefront {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+
+/*SHARK CARDS*/
+.shark-card {
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  width: 30%;
+  min-width: 350px;
+  background-color: rgba(255, 255, 255, 0.8);
+  border: 10px solid rgba(255, 255, 255, 0.3);
+  border-radius: 20px;
+  padding: 20px;
+  padding-bottom: 20px;
+  margin-bottom: 30px;
+}
+
+.shark-card:hover {
+  background-color: rgba(255, 255, 255, 0.9);
+}
+
+.shark-card:hover .shark-image {
+  box-shadow: 0 0 17px #2567b9;
+}
+
+.shark-name {
+  margin: 10px;
+  font-size: 30px;
+}
+
+.shark-image {
+  width: 250px;
+  border-radius: 150px;
+  margin: 10px;
+}
+
+.shark-description {
+  width: 75%;
+  margin: auto;
+  margin-bottom: 15px;
+  background-color: rgba(255, 255, 255, 0.8);
+  padding: 15px;
+}
+
+.shark-price {
+  margin-bottom: 15px;
+}
+
+.buy-shark {
+  border: none;
+  background-color: #2567b9;
+  color: white;
+  font-size: 16px;
+  padding: 10px 15px;
+  margin: 10px
+}
+
+.buy-shark:hover {
+  background-color: #23bca3;
+}
+
+/*CART & ORDERS*/
+#show-orders,
+#show-cart {
+  box-sizing: border-box;
+  height: 40px;
+  width: 40px;
+  border: 2px solid black;
+  background-color: rgba(255, 255, 255, 0.7);
+}
+
+#show-orders:hover,
+#show-cart:hover {
+  background-color: white;
+}
+
+#show-orders {
+  border-left: none;
+  border-radius: 0 5px 5px 0;
+}
+
+#show-cart {
+  border-right: none;
+  border-radius: 5px 0 0 5px;
+  padding: 5px;
+}
+
+
+
+/*GLOBALS*/
+.bought {
+  opacity: 0.3;
+}

@@ -2,10 +2,29 @@
 <html>
   <head>
     <meta charset="utf-8">
+    <link href='https://fonts.googleapis.com/css?family=Abril+Fatface|Open+Sans:300,700' rel='stylesheet'>
+    <link rel='stylesheet' type='text/css' href='../styles/index.css'>
     <title>shark-bay</title>
   </head>
   <body>
     <h1>shark-bay</h1>
-    <p class='slogan'>Your premier destination for imaginary sharks</p>
+    <p class='slogan'>Adopt an imaginary shark today!</p>
+
+    <article id='shop-content'>
+      <img src='assets/orders.png' id='show-orders' />
+      <section id='orders' class='hidden'></section>
+
+      <section id='storefront'>
+      </section>
+
+      <img src='assets/cart.png' id='show-cart'></button>
+      <section id='cart' class='hidden'></section>
+    </article>
+
+    <script>
+      window.jQuery || document.write('<script src="./scripts/jquery-3.2.1.min.js"><\/script>')
+    </script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="./scripts/index.js"></script>
   </body>
 </html>

@@ -59,14 +59,14 @@ let sharksData = [
     id: 9,
     name: 'Tyrone',
     description: 'A cuddly shark. Enjoys snacks and staring contests.',
-    img_src: 'http://www.gannett-cdn.com/-mm-/9065941e142eb769bb76794c742e08d1e14ee558/r=300/http/www.gannett-cdn.com/-mm-/9065941e142eb769bb76794c742e08d1e14ee558/r=300/http/www.gannett-cdn.com/-mm-/8661eac24f6067232481aca014126d2fb8943a16/c=59-0-464-405/local/-/media/2016/02/09/USATODAY/USATODAY/635906155344251153-635712730459368370-XXX-Discovery-Sharkweek2015-dcb.JPG',
+    img_src: 'https://lh4.ggpht.com/Kk9npmGeU72K1vQBRcy4u01WMq0fbansc7sGeSW4debaBTBMU49Oss80vGwC6RJeHerK=w300',
     price: 89.99
   },
   {
     id: 10,
     name: 'Siobhan',
-    description: 'https://storage.googleapis.com/ahead4-thegreatprojects/image-cache/s/h/a/r/k/shark-week-2017---why-these-misunderstood-marine-creatures-need-our-help-5506-300x300.jpeg',
-    img_src: 'A delightful shark. Energetic, enjoys splashing in the waves and eating seals.',
+    description: 'A delightful shark. Energetic, enjoys splashing in the waves and eating seals.',
+    img_src: 'https://storage.googleapis.com/ahead4-thegreatprojects/image-cache/s/h/a/r/k/shark-week-2017---why-these-misunderstood-marine-creatures-need-our-help-5506-300x300.jpeg',
     price: 104.99
   },
   {
@@ -74,7 +74,7 @@ let sharksData = [
     name: 'Todd',
     description: 'A goofy shark. Enjoys singing. Overheats easily and prefers the cold.',
     img_src: 'http://pop.h-cdn.co/assets/cm/15/05/54cb64d29f689_-_sharkattack-300-md.jpg',
-    price:
+    price: 99.99
   },
   {
     id: 12,
@@ -82,7 +82,7 @@ let sharksData = [
     description: 'Very glamorous. Highly social, has all the best gossip.',
     img_src: 'https://i0.wp.com/kickassfacts.com/wp-content/uploads/2013/12/Hammerheadsharks_thumb.jpg?resize=300%2C300',
     price: 124.99
-  },
+  }
 ]
 
 const createItem = (knex, shark) => {

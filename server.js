@@ -5,8 +5,6 @@ const environment = process.env.NODE_ENV || 'development';
 const configuration = require('./knexfile')[environment];
 const database = require('knex')(configuration);
 const domain = process.env.DOMAIN_ENV || 'localhost:1975';
-const jwt = require('jsonwebtoken');
-const userToken = process.env.TOKEN;
 require('dotenv').config();
 
 app.use(bodyParser.json())
@@ -20,8 +18,6 @@ app.use((req, res, next) => {
    next();
 });
 
-app.set('secretKey', process.env.CLIENT_SECRET);
-
 app.set('port', process.env.PORT || 1975);
 
 app.locals.title = 'shark-bay';
@@ -30,15 +26,54 @@ app.get('/', (request, response) => {
   response.sendFile('index.html')
   response.sendFile('./styles/index.css')
   response.sendFile('./scripts/index.js')
-})
+});
+
+app.get('/api/v1/sharks', (request, response) => {
+  database('sharks').select()
+    .then((sharks) => {
+      if (sharks.length) {
+        response.status(200).json(sharks);
+      } else {
+        response.status(404).json({
+          error: 'No sharks found'
+        });
+      }
+    })
+  .catch((error) => {
+    response.status(500).json({ error });
+  })
+});
+
+app.get('api/v1/orders', (request, response) => {
+  database('order_history').select()
+    .then((orders) => {
+      if (orders.length) {
+        response.status(200).json(orders);
+      } else {
+        response.status(404).json({
+          error: 'No orders found'
+        });
+      }
+    })
+  .catch((error) => {
+    response.status(500).json({ error });
+  })
+});
+
+app.post('/api/v1/orders', (request, response) => {
+  const order = request.body;
+
+  database('order_history').insert(order, 'id')
+    .then((orderId) => {
+      response.status(201).json({ id: orderId[0] });
+    })
+  .catch((error) => {
+    response.status(500).json({ error });
+  });
+});
 
 app.listen(app.get('port'), () => {
   console.log(`${app.locals.title} is running on ${app.get('port')}`);
-})
-
-// const token = jwt.sign({username: process.env.USERNAME, password: process.env.PASSWORD}, app.get('secretKey'), {
-//   expiresIn: 604800
-// });
-// console.log('Token: ', token);
+});
 
 module.exports = app;
