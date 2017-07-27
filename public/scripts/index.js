@@ -11,7 +11,7 @@ const sharkHtmlGenerator = (shark) => {
           <p class='shark-description'>${shark.description}</p>
           <p>Price:</p>
           <h3 class='shark-price'>$${shark.price}</h3>
-          <button class='buy-shark'>ADOPT ME</button>
+          <button class='buy-shark'>ADOPT ME!</button>
         </article>
         `
       )
