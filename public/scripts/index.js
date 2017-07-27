@@ -1,17 +1,35 @@
 const sharkHtmlGenerator = (shark) => {
-  return(
-    `
-    <article class='shark-card' id='${shark.id}' data-price='${shark.price}'>
-      <h2 class='shark-name'>${shark.name}</h2>
-      <img class='shark-image' alt='picture of shark' src=${shark.img_src} />
-      <p>Description:</p>
-      <p class='shark-description'>${shark.description}</p>
-      <p>Price:</p>
-      <h3 class='shark-price'>$${shark.price}</h3>
-      <button class='buy-shark'>BUY ME</button>
-    </article>
-    `
-  )
+  if (localStorage.length && localStorage.getItem(`${shark.id}`) !== null) {
+    if (shark.id == JSON.parse(localStorage.getItem(`${shark.id}`))[0].id) {
+      return (
+        `
+        <article class='shark-card bought' id='${shark.id}' data-price='${shark.price}'>
+          <h2 class='shark-name'>${shark.name}</h2>
+          <img class='shark-image' alt='picture of shark' src=${shark.img_src} />
+          <p>Description:</p>
+          <p class='shark-description'>${shark.description}</p>
+          <p>Price:</p>
+          <h3 class='shark-price'>$${shark.price}</h3>
+          <button class='buy-shark'>BUY ME</button>
+        </article>
+        `
+      )
+    }
+  } else {
+    return (
+      `
+      <article class='shark-card' id='${shark.id}' data-price='${shark.price}'>
+        <h2 class='shark-name'>${shark.name}</h2>
+        <img class='shark-image' alt='picture of shark' src=${shark.img_src} />
+        <p>Description:</p>
+        <p class='shark-description'>${shark.description}</p>
+        <p>Price:</p>
+        <h3 class='shark-price'>$${shark.price}</h3>
+        <button class='buy-shark'>BUY ME</button>
+      </article>
+      `
+    )
+  }
 }
 
 const displaySharks = (sharkArray) => {
