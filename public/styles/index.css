@@ -137,6 +137,11 @@ p, button, a {
   float: right;
 }
 
+.complete {
+  margin: 20px;
+  text-align: center;
+}
+
 /*ORDERS PAGE*/
 #orders {
   box-sizing: border-box;

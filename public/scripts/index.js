@@ -11,7 +11,7 @@ const sharkHtmlGenerator = (shark) => {
           <p class='shark-description'>${shark.description}</p>
           <p>Price:</p>
           <h3 class='shark-price'>$${shark.price}</h3>
-          <button class='buy-shark'>BUY ME</button>
+          <button class='buy-shark'>ADOPT ME</button>
         </article>
         `
       )
@@ -144,11 +144,12 @@ const displayCartContents = (sharkCart) => {
 const showCart = () => {
   $('#cart').css('width', '50%');
   displayCart();
+  $('#checkout').removeClass('hidden');
 }
 
 const hideCart = () => {
   $('#cart').css('width', '0');
-  $('#cart').empty();
+  $('#show-items').empty();
 }
 
 $('#show-cart').on('click', () => {
@@ -166,10 +167,13 @@ $('#checkout').on('click', () => {
   localStorage.clear();
   $('#show-items').empty();
   $('#show-items').append(`
-    <p>Order complete!</p>
-    <p>Enjoy your new imaginary shark!</p>
+    <div class='complete'>
+      <p>Order complete!</p>
+      <p>Enjoy your new imaginary shark!</p>
+    </div>
   `)
   cartEmptyStyle();
+  $('#checkout').addClass('hidden');
 })
 
 
@@ -234,7 +238,7 @@ const showOrders = () => {
 
 const hideOrders = () => {
   $('#orders').css('width', '0');
-  $('#orders').empty();
+  $('#orders-section').empty();
 }
 
 $('#show-orders').on('click', () => {
