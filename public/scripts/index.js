@@ -142,7 +142,7 @@ const displayCartContents = (sharkCart) => {
 }
 
 const showCart = () => {
-  $('#cart').css('width', '50%');
+  $('#cart').css('width', '75%');
   displayCart();
   $('#checkout').removeClass('hidden');
 }
@@ -173,7 +173,7 @@ $('#checkout').on('click', () => {
     </div>
   `)
   cartEmptyStyle();
-  $('#checkout').addClass('hidden');
+  $('.shark-card').removeClass('bought');
 })
 
 
@@ -232,7 +232,7 @@ const orderStyle = () => {
 }
 
 const showOrders = () => {
-  $('#orders').css('width', '50%');
+  $('#orders').css('width', '75%');
   getOrders();
 }
 
