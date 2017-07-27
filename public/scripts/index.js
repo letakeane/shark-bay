@@ -58,9 +58,7 @@ const clickBuyShark = () => {
 
     $(`#${id}`).toggleClass('bought');
     $(`#${id}`).children('button').prop('disabled', true);
-    $('#show-cart').css('background-color', '#23bca3');
-    $('#show-cart').css('border', '2px solid white');
-    $('#show-cart').css('border-right', 'none');
+    cartFullStyle();
 
     fetch(`/api/v1/sharks/${id}`)
       .then((response) => response.json())
@@ -71,4 +69,103 @@ const clickBuyShark = () => {
   })
 }
 
+const persistCartStyle = () => {
+  if (localStorage.length) {
+    cartFullStyle();
+  }
+}
+
+const cartFullStyle = () => {
+  $('#show-cart').css('background-color', '#23bca3');
+  $('#show-cart').css('border', '2px solid white');
+  $('#show-cart').css('border-right', 'none');
+}
+
+const displayCart = () => {
+  const sharkCart = [];
+  for (var i in localStorage) {
+    sharkCart.push(JSON.parse(localStorage[i])[0]);
+  }
+  displayCartContents(sharkCart);
+}
+
+const cartHTMLGenerator = (shark) => {
+  return (
+    `
+    <article class='item' id='item${shark.id}' data-item-price='${shark.price}'>
+      <div class='item-info'>
+        <img class='item-image' alt='picture of shark' src=${shark.img_src} />
+        <h2 class='item-name'>${shark.name}</h2>
+      </div>
+      <h3 class='item-price'>$${shark.price}</h3>
+    </article>
+    `
+  )
+}
+
+const cartTotal = () => {
+  const priceArray = [];
+
+  if ($('.item')) {
+    $('.item').each((index) => {
+      const id = $('.item')[index].id;
+      const price = $(`#${id}`).data('item-price');
+      priceArray.push(price)
+    })
+
+    const total = priceArray.reduce((acc, price) => {
+      acc = acc + price;
+      return acc;
+    }, 0)
+    return (
+      `
+        <p id='cart-total' data-order-total='${total.toFixed(2)}'>TOTAL: $${total.toFixed(2)}</p>
+      `
+    );
+  }
+}
+
+const displayCartContents = (sharkCart) => {
+  sharkCart.forEach((shark) => {
+    $('#show-items').append(cartHTMLGenerator(shark))
+  })
+  $('#show-items').append(cartTotal());
+}
+
+const showCart = () => {
+  $('#cart').css('width', '50%');
+  displayCart();
+}
+
+const hideCart = () => {
+  $('#cart').css('width', '0');
+  $('#cart').html('');
+}
+
+$('#show-cart').on('click', () => {
+  showCart();
+})
+
+$('#close-cart').on('click', () => {
+  hideCart();
+})
+
+$('#checkout').on('click', () => {
+  const total = $('#cart-total').data('order-total');
+  postOrder(total);
+})
+
+const postOrder = (total) => {
+  const header = { "Content-Type": "application/json" };
+  const body = { "total_price": `${total}` };
+
+  return fetch('/api/v1/orders', {method: "POST", headers: header, body: JSON.stringify(body)})
+    .then(resp => resp.json())
+    .then(id => {
+      return id
+    })
+  .catch(error => console.log('Error retreiving folders: ', error))
+}
+
 getSharks();
+persistCartStyle();
