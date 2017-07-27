@@ -1,3 +1,4 @@
+// STOREFRONT
 const sharkHtmlGenerator = (shark) => {
   if (localStorage.length && localStorage.getItem(`${shark.id}`) !== null) {
     if (shark.id == JSON.parse(localStorage.getItem(`${shark.id}`))[0].id) {
@@ -69,6 +70,8 @@ const clickBuyShark = () => {
   })
 }
 
+
+// CART
 const persistCartStyle = () => {
   if (localStorage.length) {
     cartFullStyle();
@@ -78,6 +81,12 @@ const persistCartStyle = () => {
 const cartFullStyle = () => {
   $('#show-cart').css('background-color', '#23bca3');
   $('#show-cart').css('border', '2px solid white');
+  $('#show-cart').css('border-right', 'none');
+}
+
+const cartEmptyStyle = () => {
+  $('#show-cart').css('background-color', 'rgba(255, 255, 255, 0.7');
+  $('#show-cart').css('border', '2px solid black');
   $('#show-cart').css('border-right', 'none');
 }
 
@@ -139,7 +148,7 @@ const showCart = () => {
 
 const hideCart = () => {
   $('#cart').css('width', '0');
-  $('#cart').html('');
+  $('#cart').empty();
 }
 
 $('#show-cart').on('click', () => {
@@ -153,7 +162,46 @@ $('#close-cart').on('click', () => {
 $('#checkout').on('click', () => {
   const total = $('#cart-total').data('order-total');
   postOrder(total);
+  newOrderStyle();
+  localStorage.clear();
+  $('#show-items').empty();
+  $('#show-items').append(`
+    <p>Order complete!</p>
+    <p>Enjoy your new imaginary shark!</p>
+  `)
+  cartEmptyStyle();
 })
+
+
+// ORDERS
+const orderHtmlGenerator = (order) => {
+  const date = order.order_date.substring(0,10);
+  return (
+    `
+      <div class='order-display'>
+        <p>ID: ${order.id}</p>
+        <p>DATE: ${date}</p>
+        <p>COST: ${order.total_price}</p>
+      </div>
+    `
+  )
+}
+
+const getOrders = () => {
+  return fetch('/api/v1/orders')
+    .then(resp => resp.json())
+    .then((orders) => {
+      $('#orders-section').empty();
+      displayOrders(orders);
+    })
+  .catch((error) => console.log('Problem retreiving orders: ', error))
+}
+
+const displayOrders = (orderArray) => {
+  orderArray.forEach((order) => {
+    $('#orders-section').append(orderHtmlGenerator(order))
+  })
+}
 
 const postOrder = (total) => {
   const header = { "Content-Type": "application/json" };
@@ -166,6 +214,36 @@ const postOrder = (total) => {
     })
   .catch(error => console.log('Error retreiving folders: ', error))
 }
+
+const newOrderStyle = () => {
+  $('#show-orders').css('background-color', '#23bca3');
+  $('#show-orders').css('border', '2px solid white');
+  $('#show-orders').css('border-left', 'none');
+}
+
+const orderStyle = () => {
+  $('#show-orders').css('background-color', 'rgba(255, 255, 255, 0.7)');
+  $('#show-orders').css('border', '2px solid black');
+  $('#show-orders').css('border-left', 'none');
+}
+
+const showOrders = () => {
+  $('#orders').css('width', '50%');
+  getOrders();
+}
+
+const hideOrders = () => {
+  $('#orders').css('width', '0');
+  $('#orders').empty();
+}
+
+$('#show-orders').on('click', () => {
+  showOrders();
+})
+
+$('#close-orders').on('click', () => {
+  hideOrders();
+})
 
 getSharks();
 persistCartStyle();
