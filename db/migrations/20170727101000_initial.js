@@ -10,7 +10,7 @@ exports.up = function(knex, Promise) {
     knex.schema.createTable('order_history', (table) => {
       table.increments('id').primary()
       table.decimal('total_price')
-      table.timestamp('order_date', true)
+      table.timestamp('order_date').defaultTo(knex.fn.now());
     })
   ])
 };
