@@ -47,7 +47,13 @@ app.get('/api/v1/sharks', (request, response) => {
 app.get('/api/v1/sharks/:id', (request, response) => {
   database('sharks').where('id', request.params.id).select()
   .then((shark) => {
-    response.status(200).json(shark);
+    if (shark.length) {
+      response.status(200).json(shark);
+    } else {
+      response.status(404).json({
+        error: `No sharks found with id of ${request.params.id}`
+      });
+    }
   })
   .catch((error) => {
     response.status(500).json({ error });
@@ -73,13 +79,19 @@ app.get('/api/v1/orders', (request, response) => {
 app.post('/api/v1/orders', (request, response) => {
   const order = request.body;
 
-  database('order_history').insert(order, 'id')
-    .then((orderId) => {
-      response.status(201).json({ id: orderId[0] });
+  if (!order.total_price) {
+    response.status(406).json({
+      error: 'Missing total_price from body'
     })
-  .catch((error) => {
-    response.status(500).json({ error });
-  });
+  } else {
+    database('order_history').insert(order, 'id')
+      .then((orderId) => {
+        response.status(201).json({ id: orderId[0] });
+      })
+    .catch((error) => {
+      response.status(500).json({ error });
+    });
+  }
 });
 
 app.listen(app.get('port'), () => {
